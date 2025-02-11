@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:train_ticket_book/constant.dart';
+import 'package:train_ticket_book/constants.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String label;
