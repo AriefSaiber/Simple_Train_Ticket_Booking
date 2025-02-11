@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:train_ticket_book/components/homepage_comp.dart';
+import 'package:train_ticket_book/controller/global_ctrl.dart';
 import 'package:train_ticket_book/controller/homepage_ctrl.dart';
 import 'package:train_ticket_book/model/homepage_mdl.dart';
 import 'package:train_ticket_book/view/trainbooking/train_select_view.dart';
@@ -20,6 +21,7 @@ class Homepage extends StatefulWidget {
 }
 
 HomeController homeCtrl = Get.put(HomeController());
+GlobalController gCtrl = Get.put(GlobalController());
 
 class _HomepageState extends State<Homepage> {
   DateTime todayDate = DateTime.now();
@@ -127,10 +129,17 @@ class _HomepageState extends State<Homepage> {
                   isMiddle: true),
               homeComp.submitButton(context, () {
                 Get.to(() => TrainSelect());
+                if (_formKey.currentState!.validate()) {
+                gCtrl.selectedOrigin.value = homeCtrl.selectedOrigin.value;
+                gCtrl.selectedDestination.value = homeCtrl.selectedDestination.value;
+                gCtrl.selectedStartDate.value = homeCtrl.selectedStartDate.value;
+                gCtrl.selectedEndDate.value = homeCtrl.selectedEndDate.value;
+                Get.to(() => TrainSelect());
+                }
               }),
             ],
           ).marginSymmetric(horizontal: Screen.W(context) * 0.1),
-        ),
+        ),           
       ),
     );
   }

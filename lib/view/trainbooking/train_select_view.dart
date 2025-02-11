@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:train_ticket_book/model/trainbooking/train_select_mdl.dart';
+import 'package:train_ticket_book/view/homepage_view.dart';
+import 'package:train_ticket_book/view/trainbooking/seat_select_depart_view.dart';
 import 'package:train_ticket_book/widget/appbar.dart';
 
 class TrainSelect extends StatelessWidget {
@@ -20,7 +23,8 @@ class TrainSelect extends StatelessWidget {
                 ListTile(
                   title: Text(trainBookModel.trainList[index]),
                   onTap: () {
-                    
+                    gCtrl.selectedTrain.value = trainBookModel.trainList[index];
+                    Get.to(() => SeatSelect());
                   },
                 ),
                 Divider()
