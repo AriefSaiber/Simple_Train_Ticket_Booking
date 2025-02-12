@@ -5,10 +5,9 @@ import 'package:train_ticket_book/components/homepage_comp.dart';
 import 'package:train_ticket_book/controller/global_ctrl.dart';
 import 'package:train_ticket_book/controller/homepage_ctrl.dart';
 import 'package:train_ticket_book/model/homepage_mdl.dart';
-import 'package:train_ticket_book/view/trainbooking/train_select_view.dart';
+import 'package:train_ticket_book/view/trainbooking/train_depart_select_view.dart';
 import 'package:train_ticket_book/widget/counter_widget.dart';
 import 'package:train_ticket_book/widget/custom_dropdown.dart';
-import 'package:train_ticket_book/widget/custom_textfield.dart';
 import 'package:train_ticket_book/widget/custom_datedown.dart';
 
 import '../constants.dart';
@@ -48,6 +47,7 @@ class _HomepageState extends State<Homepage> {
                 'Enter Origin Station',
                 CustomDDown(
                   items: homeModel().originList,
+                  hint: 'Select Origin Station',
                   onChanged: (value) {
                     if (value != null) {
                       homeCtrl.selectedOrigin.value = value;
@@ -61,6 +61,7 @@ class _HomepageState extends State<Homepage> {
                 'Enter Destination Station',
                 CustomDDown(
                   items: homeModel().destinationList,
+                  hint: 'Select Destination Station',
                   onChanged: (value) {
                     if (value != null) {
                       homeCtrl.selectedDestination.value = value;
@@ -128,18 +129,18 @@ class _HomepageState extends State<Homepage> {
                   ),
                   isMiddle: true),
               homeComp.submitButton(context, () {
-                Get.to(() => TrainSelect());
+                Get.to(() => TrainDepartSelect());
                 if (_formKey.currentState!.validate()) {
-                gCtrl.selectedOrigin.value = homeCtrl.selectedOrigin.value;
-                gCtrl.selectedDestination.value = homeCtrl.selectedDestination.value;
-                gCtrl.selectedStartDate.value = homeCtrl.selectedStartDate.value;
-                gCtrl.selectedEndDate.value = homeCtrl.selectedEndDate.value;
-                Get.to(() => TrainSelect());
+                  gCtrl.selectedOrigin.value = homeCtrl.selectedOrigin.value;
+                  gCtrl.selectedDestination.value = homeCtrl.selectedDestination.value;
+                  gCtrl.selectedDepartDate.value = homeCtrl.selectedStartDate.value;
+                  gCtrl.selectedReturnDate.value = homeCtrl.selectedEndDate.value;
+                  Get.to(() => TrainDepartSelect());
                 }
               }),
             ],
           ).marginSymmetric(horizontal: Screen.W(context) * 0.1),
-        ),           
+        ),
       ),
     );
   }

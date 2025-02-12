@@ -26,4 +26,29 @@ class summaryComp {
       vertical: Screen.H(context) * 0.01,
     );
   }
+
+  Container buttonWidget(BuildContext context,
+      {required String title, required Color color, required Function() onPressed}) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+          backgroundColor: WidgetStateProperty.all<Color>(color),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 16.0,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
 }

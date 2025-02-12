@@ -3,16 +3,17 @@ import 'package:get/get.dart';
 import 'package:train_ticket_book/model/trainbooking/train_select_mdl.dart';
 import 'package:train_ticket_book/view/homepage_view.dart';
 import 'package:train_ticket_book/view/trainbooking/seat_select_depart_view.dart';
+import 'package:train_ticket_book/view/trainbooking/seat_select_return_view.dart';
 import 'package:train_ticket_book/widget/appbar.dart';
 
-class TrainSelect extends StatelessWidget {
-  const TrainSelect({super.key});
+class TrainReturnSelect extends StatelessWidget {
+  const TrainReturnSelect({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Select Train',
+        title: 'Select Returning Train',
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -23,8 +24,8 @@ class TrainSelect extends StatelessWidget {
                 ListTile(
                   title: Text(trainBookModel.trainList[index]),
                   onTap: () {
-                    gCtrl.selectedTrain.value = trainBookModel.trainList[index];
-                    Get.to(() => SeatSelect());
+                    gCtrl.selectedReturnTrain.value = trainBookModel.trainList[index];
+                    Get.to(() => SeatReturnSelect());
                   },
                 ),
                 Divider()

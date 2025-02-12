@@ -6,7 +6,7 @@ import 'package:train_ticket_book/view/trainbooking/seat_select_depart_view.dart
 import 'package:train_ticket_book/widget/snackbar.dart';
 
 class seatComp {
-  Widget bookingContainer({required VoidCallback setState, required int pageindex}) {
+  Widget bookingContainer({required VoidCallback setState, required int pageindex, required RxString selectedSeat}) {
     return Container(
       padding: EdgeInsets.all(16),
       child: Stack(
@@ -47,10 +47,11 @@ class seatComp {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  if (seatCtrl.selectedSeat.value == '') {
-                    seatCtrl.selectedSeat.value = "${seatCtrl.intToAlphabet(pageindex + 1)}${index + 1}";
-                  } else if (seatCtrl.selectedSeat.value == "${seatCtrl.intToAlphabet(pageindex + 1)}${index + 1}") {
-                    seatCtrl.selectedSeat.value = '';
+                  if (selectedSeat.value == '') {
+                    selectedSeat.value = "${seatCtrl.intToAlphabet(pageindex + 1)}${index + 1}";
+                  } else if (selectedSeat.value ==
+                      "${seatCtrl.intToAlphabet(pageindex + 1)}${index + 1}") {
+                    selectedSeat.value = '';
                   } else {
                     showSnackbar(title: 'Sorry', message: 'You can only select one seat at a time', isError: true);
                   }
@@ -58,7 +59,7 @@ class seatComp {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: "${seatCtrl.intToAlphabet(pageindex + 1)}${index + 1}" == seatCtrl.selectedSeat.value
+                    color: "${seatCtrl.intToAlphabet(pageindex + 1)}${index + 1}" == selectedSeat.value
                         ? Colors.green
                         : Colors.white,
                     border: Border.all(color: Colors.black, width: 2),
@@ -78,26 +79,35 @@ class seatComp {
     );
   }
 
-  Container timeContainer(BuildContext context, int index) {
-    return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    width: Screen.W(context) * 0.2,
-                    height: Screen.H(context) * 0.05,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 1,
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "${seatMdl.times[index]}",
-                      style: TextStyle(
-                        color: Colors.white, // Text color
-                        fontSize: 18,
-                      ),
-                    ),
-                  );
-  }
+  Widget timeContainer(BuildContext context, int index, RxInt selectedTimeIndex) {
+  bool isSelected = selectedTimeIndex.value == index;
+
+  return GestureDetector(
+    onTap: () {
+      selectedTimeIndex.value = index;
+    },
+    child: Container(
+      margin: EdgeInsets.symmetric(horizontal: Screen.W(context) * 0.01),
+      width: Screen.W(context) * 0.2,
+      height: Screen.H(context) * 0.05,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: isSelected ? Colors.green.withOpacity(0.5) : Colors.transparent, // Highlighted color
+        border: Border.all(
+          color: isSelected ? Colors.green : Colors.white, // Change border color if selected
+          width: 2,
+        ),
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        "${seatMdl.times[index]}",
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal, // Bold text if selected
+        ),
+      ),
+    ),
+  );
+}
+
 }

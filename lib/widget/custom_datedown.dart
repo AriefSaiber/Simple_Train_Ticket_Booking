@@ -24,14 +24,20 @@ class CustomDateDDown extends StatelessWidget {
     return TextFormField(
       validator: validator,
       controller: dateinput,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
-        labelText: label,
+        filled: true,
+        fillColor: Colors.white,
+        focusColor: Colors.black,
+        hintStyle: TextStyle(color: Colors.grey),
+        hintText: label,
+        // labelText: label,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Constants.borderColor, width: 1.5), // Border color
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: Constants.borderColor, width: 1.5), // Border color
         ),
       ),

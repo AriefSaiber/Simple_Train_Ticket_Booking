@@ -6,31 +6,32 @@ import 'package:train_ticket_book/controller/seat_select_ctrl.dart';
 import 'package:train_ticket_book/model/trainbooking/seat_select_mdl.dart';
 import 'package:train_ticket_book/view/homepage_view.dart';
 import 'package:train_ticket_book/view/trainbooking/booking_summary_view.dart';
+import 'package:train_ticket_book/view/trainbooking/train_return_select_view.dart';
 import 'package:train_ticket_book/widget/appbar.dart';
 
-class SeatSelect extends StatefulWidget {
-  const SeatSelect({super.key});
+class SeatDepartSelect extends StatefulWidget {
+  const SeatDepartSelect({super.key});
 
   @override
-  State<SeatSelect> createState() => _SeatSelectState();
+  State<SeatDepartSelect> createState() => _SeatDepartSelectState();
 }
 
 final SeatSelectController seatCtrl = Get.put(SeatSelectController());
 
-class _SeatSelectState extends State<SeatSelect> {
+class _SeatDepartSelectState extends State<SeatDepartSelect> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
         canPop: true,
         onPopInvoked: (bool didPop) async {
           if (didPop) {
-            seatCtrl.selectedSeat.value = '';
+            seatCtrl.selectedDepartSeat.value = '';
           }
           return;
         },
         child: Obx(
           () => Scaffold(
-            appBar: CustomAppBar(title: 'Select Seat (${gCtrl.selectedTrain})'),
+            appBar: CustomAppBar(title: 'Departing Seat (${gCtrl.selectedDepartTrain})'),
             body: Column(
               children: [
                 SingleChildScrollView(
@@ -38,7 +39,7 @@ class _SeatSelectState extends State<SeatSelect> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(seatMdl.times.length, (index) {
-                      return seatComp().timeContainer(context, index);
+                      return seatComp().timeContainer(context, index, seatCtrl.selectedDepartIndex);
                     }),
                   ),
                 ),
@@ -53,6 +54,7 @@ class _SeatSelectState extends State<SeatSelect> {
                             return seatComp().bookingContainer(
                               setState: () => setState(() {}),
                               pageindex: index,
+                              selectedSeat: seatCtrl.selectedDepartSeat,
                             );
                           },
                           childCount: 6,
@@ -69,12 +71,14 @@ class _SeatSelectState extends State<SeatSelect> {
               ],
             ),
             floatingActionButton: Obx(
-              () => seatCtrl.selectedSeat.value.isNotEmpty
+              () => seatCtrl.selectedDepartSeat.value.isNotEmpty
                   ? FloatingActionButton(
                       onPressed: () {
                         // Handle action when seat is selected
-                        Get.to(BookingSummaryView());
-                        print("Proceed with seat: ${seatCtrl.selectedSeat.value}");
+                        gCtrl.selectedDepartTime.value = seatMdl.times[seatCtrl.selectedDepartIndex.value];
+                        gCtrl.selectedDepartSeat.value =  seatCtrl.selectedDepartSeat.value;
+                        Get.to(TrainReturnSelect());
+                        print("Proceed with seat: ${seatCtrl.selectedDepartSeat.value}");
                       },
                       child: Icon(Icons.check, size: 36),
                       backgroundColor: Colors.green,
