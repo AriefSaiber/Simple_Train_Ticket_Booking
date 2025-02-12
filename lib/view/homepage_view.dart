@@ -82,8 +82,8 @@ class _HomepageState extends State<Homepage> {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: homeCtrl.selectedStartDate.value ?? todayDate,
-                      firstDate: todayDate.subtract(Duration(days: 365)),
-                      lastDate: todayDate.add(Duration(days: 0)),
+                      firstDate: todayDate.add(Duration(days: 0)),
+                      lastDate: todayDate.add(Duration(days: 365)),
                     );
                     if (pickedDate != null) {
                       String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
@@ -106,8 +106,8 @@ class _HomepageState extends State<Homepage> {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
                       initialDate: homeCtrl.selectedEndDate.value ?? todayDate,
-                      firstDate: todayDate.subtract(Duration(days: 365)),
-                      lastDate: todayDate.add(Duration(days: 0)),
+                       firstDate: todayDate.add(Duration(days: 0)),
+                      lastDate: todayDate.add(Duration(days: 365)),
                     );
                     if (pickedDate != null) {
                       String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
@@ -129,7 +129,6 @@ class _HomepageState extends State<Homepage> {
                   ),
                   isMiddle: true),
               homeComp.submitButton(context, () {
-                Get.to(() => TrainDepartSelect());
                 if (_formKey.currentState!.validate()) {
                   gCtrl.selectedOrigin.value = homeCtrl.selectedOrigin.value;
                   gCtrl.selectedDestination.value = homeCtrl.selectedDestination.value;

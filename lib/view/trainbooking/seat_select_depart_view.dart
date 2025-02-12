@@ -76,7 +76,7 @@ class _SeatDepartSelectState extends State<SeatDepartSelect> {
                       onPressed: () {
                         // Handle action when seat is selected
                         gCtrl.selectedDepartTime.value = seatMdl.times[seatCtrl.selectedDepartIndex.value];
-                        gCtrl.selectedDepartSeat.value =  seatCtrl.selectedDepartSeat.value;
+                        gCtrl.selectedDepartSeat.value = seatCtrl.selectedDepartSeat.value;
                         Get.to(TrainReturnSelect());
                         print("Proceed with seat: ${seatCtrl.selectedDepartSeat.value}");
                       },
